@@ -58,7 +58,7 @@ class AclExtrasShell extends Shell {
  *
  * @var string
  **/
-	public $rootNode = 'controllers';
+	public $rootNode = 'Controllers';
 
 /**
  * Internal Clean Actions switch
@@ -103,9 +103,10 @@ class AclExtrasShell extends Shell {
 		$plugins = CakePlugin::loaded();
 		foreach ($plugins as $plugin) {
 			$controllers = $this->getControllerList($plugin);
-
-			$path = $this->rootNode . '/' . $plugin;
-			$pluginRoot = $this->_checkNode($path, $plugin, $root['Aco']['id']);
+			$path = $this->rootNode . '/' . $plugin . 'Plugin';
+			$pluginRoot = $this->_checkNode($path, $plugin.'Plugin' , $root['Aco']['id']);
+//			$path = $this->rootNode . '/' . $plugin;
+//			$pluginRoot = $this->_checkNode($path, $plugin, $root['Aco']['id']);
 			$this->_updateControllers($pluginRoot, $controllers, $plugin);
 		}
 		$this->out(__('<success>Aco Update Complete</success>'));
@@ -124,7 +125,8 @@ class AclExtrasShell extends Shell {
 		$dotPlugin = $pluginPath = $plugin;
 		if ($plugin) {
 			$dotPlugin .= '.';
-			$pluginPath .= '/';
+			$pluginPath .= 'Plugin/';
+//			$pluginPath .= '/';
 		}
 		$appIndex = array_search($plugin . 'AppController', $controllers);
 		if ($appIndex !== false) {
@@ -138,7 +140,7 @@ class AclExtrasShell extends Shell {
 
 			$path = $this->rootNode . '/' . $pluginPath . $controllerName;
 			$controllerNode = $this->_checkNode($path, $controllerName, $root['Aco']['id']);
-			$this->_checkMethods($controller, $controllerName, $controllerNode, $pluginPath);
+			//$this->_checkMethods($controller, $controllerName, $controllerNode, $pluginPath);
 		}
 		if ($this->_clean) {
 			if (!$plugin) {
